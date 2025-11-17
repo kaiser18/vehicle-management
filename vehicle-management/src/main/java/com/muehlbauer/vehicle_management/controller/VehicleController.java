@@ -3,9 +3,11 @@ package com.muehlbauer.vehicle_management.controller;
 import com.muehlbauer.vehicle_management.domain.Vehicle;
 import com.muehlbauer.vehicle_management.dto.VehicleDTO;
 import com.muehlbauer.vehicle_management.service.impl.VehicleService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,14 +25,14 @@ public class VehicleController {
     }
 
     @PostMapping("/vehicles")
-    public ResponseEntity<Vehicle> postVehicle(@RequestBody VehicleDTO dto) {
+    public ResponseEntity<Vehicle> postVehicle(@Valid @RequestBody VehicleDTO dto) {
         Vehicle vehicle = service.add(dto);
 
         return new ResponseEntity<>(vehicle, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/vehicles/{id}")
-    public ResponseEntity<?> deleteVehicle(@PathVariable("id") int id) {
+    public ResponseEntity<?> deleteVehicle(@Validated @PathVariable("id") int id) {
         service.delete(id);
 
         return new ResponseEntity<>("Vehicle successfully deleted.",HttpStatus.OK);
