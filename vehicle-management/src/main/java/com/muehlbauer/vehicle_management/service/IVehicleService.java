@@ -8,5 +8,5 @@ import java.util.List;
 public interface IVehicleService {
     Vehicle add(VehicleDTO dto);
     List<Vehicle> findAll();
-    void delete(int id);
+    String delete(int id);
 }

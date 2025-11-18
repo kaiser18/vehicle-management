@@ -32,15 +32,15 @@ public class VehicleController {
     public ResponseEntity<Vehicle> postVehicle(@Valid @RequestBody VehicleDTO dto) {
         Vehicle vehicle = service.add(dto);
 
-        LOGGER.info("Vehicle successfully added");
+        LOGGER.info("Vehicle with id {} successfully added", vehicle.getId());
         return new ResponseEntity<>(vehicle, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/vehicles/{id}")
     public ResponseEntity<?> deleteVehicle(@Validated @PathVariable("id") int id) {
-        service.delete(id);
+        String message = service.delete(id);
 
-        LOGGER.info("Vehicle successfully deleted");
-        return new ResponseEntity<>("Vehicle successfully deleted.",HttpStatus.OK);
+        LOGGER.info(message);
+        return new ResponseEntity<>(message,HttpStatus.OK);
     }
 }

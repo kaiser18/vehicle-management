@@ -26,9 +26,10 @@ public class VehicleService implements IVehicleService {
     @Override
     public Vehicle add(VehicleDTO dto) {
         Vehicle vehicle = VehicleMapper.mapVehicleDTOtoVehicle(dto);
+
         repository.save(vehicle);
 
-        LOGGER.info("Vehicle successfully added");
+        LOGGER.info("Vehicle with id {} successfully added", vehicle.getId());
         return vehicle;
     }
 
@@ -39,8 +40,14 @@ public class VehicleService implements IVehicleService {
     }
 
     @Override
-    public void delete(int id) {
-        LOGGER.info("Vehicle successfully deleted");
+    public String delete(int id) {
+        if (repository.findById(id).isEmpty()) {
+            LOGGER.info("Vehicle with id {} doesn't exist", id);
+            return "Vehicle with id: " + id + " " + "doesn't exist";
+        }
         repository.deleteById(id);
+        LOGGER.info("Vehicle with id {} successfully deleted", id);
+
+        return "Vehicle with id: " + id + " " + "successfully deleted";
     }
 }
