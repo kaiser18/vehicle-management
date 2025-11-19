@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import './App.css'
 import Header from './components/Header';
 import VehicleForm from './components/VehicleForm';
@@ -8,7 +9,6 @@ function App() {
     <>
       <div className="App">
         <Header />
-        <VehicleForm onSave={() => {}}></VehicleForm>
         <VehiclesList></VehiclesList>
       </div>
     </>
